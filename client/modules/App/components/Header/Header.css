@@ -1,7 +1,25 @@
+@font-face{
+  font-family: "NeoRetroDraw";
+  src: url('../fonts/NEORF.ttf') format('truetype');
+}
+
 .header {
   background: #eee url('../../header-bk.png') center;
   background-size: cover;
   border-bottom: 1px solid #ccc;
+}
+.navColor{
+  background-color: #aac5de !important;
+  border-color: #9eb1c1 !important;
+}
+.navWrap  li>a{
+  color: #173870 !important;
+}
+.myBrand{
+  font-family: 'Delius', cursive;
+  font-size: 2.8em;
+  padding: 0 1.5em 0 1em;
+  color: #173870;
 }
 
 .content {
