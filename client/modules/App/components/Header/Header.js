@@ -1,26 +1,24 @@
 import React, { PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import { Menu } from 'semantic-ui-react';
-import GetStarted from '../../../../components/getStarted';
-
 
 // Import Style
 import styles from './Header.css';
 
 export function Header(props, context) {
+ 
   return (
     <div className={styles.header}>
         <Menu className={styles.navColor} pointing secondary>
         <span className={styles.myBrand}>Salut.io</span>
-          <Menu.Item name='home' active={context.router.isActive('/', true)} onClick={browserHistory.push('/')} />
-          <Menu.Item name='About' active={context.router.isActive('/About', true)} onClick={browserHistory.push('/About')} />
-          <Menu.Item name='FAQ'  active={context.router.isActive('/FAQ', true)} onClick={browserHistory.push('/FAQ')}/>
+          <Menu.Item name='home' active={context.router.isActive('/', true)} onClick={()=> browserHistory.push('/')} />
+          <Menu.Item name='About' active={context.router.isActive('/about', true)} onClick={()=> browserHistory.push('/about')} />
+          <Menu.Item name='FAQ'  active={context.router.isActive('/faq', true)} onClick={()=> browserHistory.push('/faq')} />
           <Menu.Menu position='right'>
-            <GetStarted />
-            <Menu.Item name='Get Started' onClick={GetStarted()}  />
-            <Menu.Item name='Login'  />
+            <Menu.Item name='Signup'  active={context.router.isActive('/signup', true)} onClick={()=> browserHistory.push('/signup')} />
+            <Menu.Item name='Login'  active={context.router.isActive('/login', true)} onClick={()=> browserHistory.push('/login')} />
           </Menu.Menu>
         </Menu>
     </div>
