@@ -14,7 +14,7 @@ class Dashboard extends React.Component{
 				</div>
 				<div className={styles.contentWrap}>
 					<Container>
-					<h2>Users Name</h2>
+					<h2>Restaurant's Name</h2>
 						<Grid celled>
 						    <Grid.Row>
 						      <Grid.Column width={3}>

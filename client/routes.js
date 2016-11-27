@@ -24,7 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
    require('./modules/Restaurant/pages/restaurantSignup');
    require('./modules/Supplier/pages/supplierSignup');
    //Back End Routes
-   require('./modules/Restaurant/pages/dashboard');
+   require('./modules/Restaurant/pages/restaurantDashboard');
    require('./modules/Supplier/pages/SupplierDashboard');
   require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 }
@@ -99,7 +99,7 @@ export default (
       path="/restDash/:userid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Restaurant/pages/dashboard').default);
+          cb(null, require('./modules/Restaurant/pages/restaurantDashboard').default);
         });
       }}
     />
