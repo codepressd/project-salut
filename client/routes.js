@@ -24,9 +24,18 @@ if (process.env.NODE_ENV !== 'production') {
    require('./modules/Restaurant/pages/restaurantSignup');
    require('./modules/Supplier/pages/supplierSignup');
    //Back End Routes
+   //Restaurant Routes
    require('./modules/Restaurant/pages/restaurantDashboard');
+   require('./modules/Restaurant/pages/restaurantShop');
+   require('./modules/Restaurant/pages/restaurantOrders');
+   require('./modules/Restaurant/pages/restaurantSuppliers');
+   //Supplier Routes
    require('./modules/Supplier/pages/SupplierDashboard');
-  require('./modules/Post/pages/PostDetailPage/PostDetailPage');
+   require('./modules/Supplier/pages/supplierProducts');
+   require('./modules/Supplier/pages/supplierAddProducts');
+   require('./modules/Supplier/pages/supplierOrders');
+   require('./modules/Supplier/pages/supplierEarnings');
+   require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 }
 
 // react-router setup with code-splitting
@@ -71,6 +80,9 @@ export default (
         });
       }}
     />
+
+   {/* Suplier Routes*/}
+
     <Route
       path="/supplier"
       getComponent={(nextState, cb) => {
@@ -88,6 +100,41 @@ export default (
       }}
     />
     <Route
+      path="/supplierDash/:userid/products"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Supplier/pages/supplierProducts').default);
+        });
+      }}
+    />
+    <Route
+      path="/supplierDash/:userid/addProducts"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Supplier/pages/supplierAddProducts').default);
+        });
+      }}
+    />
+    <Route
+      path="/supplierDash/:userid/orders"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Supplier/pages/supplierOrders').default);
+        });
+      }}
+    />
+    <Route
+      path="/supplierDash/:userid/earnings"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Supplier/pages/supplierEarnings').default);
+        });
+      }}
+    />
+
+  {/*Restaurant Routes*/}
+
+    <Route
       path="/restaurant"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
@@ -100,6 +147,30 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Restaurant/pages/restaurantDashboard').default);
+        });
+      }}
+    />
+    <Route
+      path="/restDash/:userid/shop"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Restaurant/pages/restaurantShop').default);
+        });
+      }}
+    />
+    <Route
+      path="/restDash/:userid/orders"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Restaurant/pages/restaurantOrders').default);
+        });
+      }}
+    />
+    <Route
+      path="/restDash/:userid/suppliers"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Restaurant/pages/restaurantSuppliers').default);
         });
       }}
     />

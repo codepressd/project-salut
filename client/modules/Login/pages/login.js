@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Grid, Form, Icon, Header, Checkbox, Button} from 'semantic-ui-react';
 
+
 import styles from '../login.css';
 
 class Login extends React.Component{
@@ -14,6 +15,7 @@ class Login extends React.Component{
 				      </Header.Content>
 				 </Header>
 				<Grid verticalAlign='middle' columns={1} centered>
+
 					    <Form>
 					    <Form.Field>
 					      <label>First Name</label>
