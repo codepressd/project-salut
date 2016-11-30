@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
+import passport from 'passport';
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -38,7 +39,7 @@ import serverConfig from './config';
 
 //routes 
 
-import suppliers from './routes/supplier.routes';
+import signup from './routes/signup.routes';
 
 
 // Set native promises as mongoose promise
@@ -61,7 +62,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../static')));
 app.use('/api', posts);
-app.use('/api/suppliers', suppliers);
+app.use('/api/signup', signup);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
