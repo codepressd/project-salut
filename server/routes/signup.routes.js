@@ -1,17 +1,14 @@
 import { Router } from 'express';
 import passport from 'passport';
-//import signupController from '../controllers/signup.controller';
+//import signupController from '../controllers/user.controller';
 import validateInput from '../util/validateSignup';
+import userController from '../controllers/user.controller';
 
 
 
 const router = new Router();
 
-router.post('/', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+router.route('/').post(userController.register);
 
 // router.post('/', (req, res) => {
 //     const { errors, isValid } = validateInput(req.body);

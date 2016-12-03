@@ -86,6 +86,7 @@ const renderFullPage = (html, initialState) => {
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700|Calligraffitti|Delius' rel='stylesheet' type='text/css'/>
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
+
       </head>
       <body>
         <div id="root">${html}</div>
@@ -110,7 +111,21 @@ const renderError = err => {
   return renderFullPage(`Server Error${errTrace}`, {});
 };
 
+//allow cross origin
+const allowCrossDomain = (req, res, next) => {
+res.header('Access-Control-Allow-Origin', '*');
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  // intercept OPTIONS method
+if ('OPTIONS' === req.method) {
+    res.send(200);
+  }
+    next();
+};
+app.use(allowCrossDomain);
 // Server Side Rendering based on routes matched by React-router.
+
 app.use((req, res, next) => {
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {

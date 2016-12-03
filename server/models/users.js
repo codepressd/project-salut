@@ -1,32 +1,71 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 
-const userSchema = mongoose.Schema({
-
-	local :{
-		username	: String,
-		email		: String,
-		password 	: String,
-		firstName	: String,
-		lastName	: String,
-		address	: String,
-		city		: String,
-		state		: String,
-		region		: String,
-		businessType	: String,
-		userType	: String,
-		products	: Array
-
-	}
+const UserSchema = mongoose.Schema({
+    email: {
+        type: String,
+        lowercase: true,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    profile: {
+        firstName: { type: String },
+        lastName: { type: String },
+        address: { type: String },
+        city: { type: String },
+        state: { type: String },
+        region: { type: String },
+        firstName: { type: String },
+        lastName: { type: String },
+        businessType: { type: String }
+    },
+    products: { type: Array },
+    role: {
+        type: String,
+        enum: ['Restaurant', 'Supplier'],
+        default: 'Restaurant'
+    },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date }
+}, {
+    timestamps: true
 });
 
-userSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+UserSchema.pre('save', function(next) {
+    const user = this,
+        SALT_FACTOR = 5;
 
-userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
-};
+    if (!user.isModified('password')) return next();
+
+    bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        bcrypt.hash(user.password, salt, null, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+});
+// UserSchema.methods.generateHash = function(password) {
+//     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
+
+UserSchema.methods.validPassword = function(candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+
+        if (err) {
+            return cb(err); 
+        }
+
+        cb(null, isMatch);
+
+    });
+}
 
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', UserSchema)
