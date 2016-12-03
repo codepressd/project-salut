@@ -15,19 +15,18 @@ const UserSchema = mongoose.Schema({
     profile: {
         firstName: { type: String },
         lastName: { type: String },
+        companyName: {type: String},
         address: { type: String },
         city: { type: String },
         state: { type: String },
         region: { type: String },
-        firstName: { type: String },
-        lastName: { type: String },
         businessType: { type: String }
     },
     products: { type: Array },
     role: {
         type: String,
-        enum: ['Restaurant', 'Supplier'],
-        default: 'Restaurant'
+        enum: ['restaurant', 'supplier'],
+        default: 'restaurant'
     },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }

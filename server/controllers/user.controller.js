@@ -15,6 +15,7 @@ function setUserInfo(request) {
         firstName: request.profile.firstName,
         lastName: request.profile.lastName,
         email: request.email,
+        companyName: request.profile.companyName,
         role: request.role,
         }
     };
@@ -33,12 +34,20 @@ function setUserInfo(request) {
 
     //register route
     exports.register = function(req, res, next) {
-    	console.log(req.body);
+    
         // Check for registration errors
         const email = req.body.email;
+        const password = req.body.password;
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
-        const password = req.body.password;
+        const companyName = req.body.companyName;
+        const address = req.body.address;
+        const city = req.body.city;
+        const state = req.body.state;
+        const region = req.body.region;
+        const businessType = req.body.businessType;
+        const role = req.body.role;
+        
 
         // Return error if no email provided
         if (!email) {
@@ -68,7 +77,17 @@ function setUserInfo(request) {
             let user = new User({
                 email: email,
                 password: password,
-                profile: { firstName: firstName, lastName: lastName }
+                profile: { 
+                	firstName: firstName, 
+                	lastName: lastName, 
+                	companyName: companyName,
+                	address: address, 
+                	city: city,
+        		state: state,
+        		region: region,
+		businessType: businessType
+	},
+	role: role
             });
 
             user.save(function(err, user) {

@@ -1,7 +1,7 @@
 {
-  "name": "mern-starter",
-  "version": "2.0.0",
-  "description": "Boilerplate project for building Isomorphic apps using React and Redux",
+  "name": "Salut.io",
+  "version": "1.0.0",
+  "description": "A universal ordering app for restaurants",
   "scripts": {
     "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node_modules/.bin/ava --serial",
     "watch:test": "npm run test -- --watch",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hashnode/mern-starter.git"
+    "url": "git+https://github.com/codepressd/project-salut.git"
   },
   "bugs": {
     "url": "https://github.com/Hashnode/mern-starter/issues"

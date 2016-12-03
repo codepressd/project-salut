@@ -29,12 +29,7 @@ export class App extends Component {
     };
 
     render() {
-        let children = null;
-        if (this.props.children) {
-            children = React.cloneElement(this.props.children, {
-                auth: this.props.route.auth //sends auth instance from route to children
-            })
-        }
+        
         return (
             <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
@@ -60,7 +55,7 @@ export class App extends Component {
             toggleAddPost={this.toggleAddPostSection}
           />
           <div className={styles.container}>
-            {children}
+            {this.props.children}
           </div>
           <Footer />
         </div>
@@ -79,6 +74,7 @@ App.propTypes = {
 function mapStateToProps(store) {
     return {
         intl: store.intl,
+        activeUser: store.ActiveUser
     };
 }
 

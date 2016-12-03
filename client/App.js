@@ -14,6 +14,7 @@ import routes from './routes';
 require('./main.css');
 
 export default function App(props) {
+  
   return (
     <Provider store={props.store}>
       <IntlWrapper>
