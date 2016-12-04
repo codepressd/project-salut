@@ -54,14 +54,14 @@ UserSchema.pre('save', function(next) {
 //     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 // };
 
-UserSchema.methods.validPassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+UserSchema.methods.validPassword = function(passwordAttempt) {
+    console.log('thispassword',this.password);
+    bcrypt.compare(passwordAttempt, this.password, function(err, res) {
 
         if (err) {
-            return cb(err); 
+            throw err 
         }
-
-        cb(null, isMatch);
+        return res;
 
     });
 }

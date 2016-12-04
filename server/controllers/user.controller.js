@@ -23,13 +23,27 @@ function setUserInfo(request) {
     //login route
 
   exports.login = function(req, res, next) {
+ 	let email = req.body.email;
+ 	let pass = req.body.password;
+        //let userInfo = setUserInfo(req.user);
+        
+        User.findOne({ email: email }, function(err, user) {
+            if (err) {
+                return next(err); }
 
-        let userInfo = setUserInfo(req.user);
-
-        res.status(200).json({
-            token: 'JWT ' + generateToken(userInfo),
-            user: userInfo
+            // If user is not found return error
+            if (!user) {
+                return res.status(422).send({ error: 'That Email is not in our system' });
+            }
+            if(user.validPassword(pass)){
+            	return res.status(423).send({error: 'That is not a Valid Password'});
+            }
+            console.log('It passed');
         });
+        // res.status(200).json({
+        //     token: 'JWT ' + generateToken(userInfo),
+        //     user: userInfo
+        // });
     }
 
     //register route

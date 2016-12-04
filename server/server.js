@@ -40,6 +40,7 @@ import serverConfig from './config';
 //routes 
 
 import signup from './routes/signup.routes';
+import login from './routes/login.routes';
 
 
 // Set native promises as mongoose promise
@@ -63,6 +64,7 @@ app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../static')));
 app.use('/api', posts);
 app.use('/api/signup', signup);
+app.use ('/api/login', login);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
@@ -168,7 +170,7 @@ app.use((req, res, next) => {
 
   app.listen(serverConfig.port, (error) => {
     if (!error) {
-      console.log(`MERN is running on port: ${serverConfig.port}! Build something amazing!`); // eslint-disable-line
+      console.log(`Salut is running on port: ${serverConfig.port}`); // eslint-disable-line
     }
   });
 

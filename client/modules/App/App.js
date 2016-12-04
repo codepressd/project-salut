@@ -55,7 +55,7 @@ export class App extends Component {
             toggleAddPost={this.toggleAddPostSection}
           />
           <div className={styles.container}>
-            {this.props.children}
+            {React.cloneElement(this.props.children, this.props)}
           </div>
           <Footer />
         </div>

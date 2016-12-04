@@ -6,7 +6,13 @@ import thunk from 'redux-thunk';
 import DevTools from './modules/App/components/DevTools';
 import rootReducer from './reducers';
 
-export function configureStore(initialState = {}) {
+import {loadUserState, saveUserState} from './components/localStorage';
+
+
+export function configureStore() {
+
+  const persistedUserState = loadUserState();
+
   // Middleware and store enhancers
   const enhancers = [
     applyMiddleware(thunk),
@@ -17,7 +23,15 @@ export function configureStore(initialState = {}) {
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
 
-  const store = createStore(rootReducer, initialState, compose(...enhancers));
+  const store = createStore(rootReducer, persistedUserState, compose(...enhancers));
+
+//persist state
+
+store.subscribe(() => {
+  saveUserState({
+    ActiveUser: store.getState().ActiveUser
+  });
+});
 
   // For hot reloading reducers
   if (module.hot) {

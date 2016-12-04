@@ -92,7 +92,7 @@ export default (
       }}
     />
     <Route
-      path="/supplierDash/:userid"
+      path="/supplier/dashboard/:userid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Supplier/pages/SupplierDashboard').default);
@@ -100,7 +100,7 @@ export default (
       }}
     />
     <Route
-      path="/supplierDash/:userid/products"
+      path="/supplier/dashboard/:userid/products"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Supplier/pages/supplierProducts').default);
@@ -108,7 +108,7 @@ export default (
       }}
     />
     <Route
-      path="/supplierDash/:userid/addProducts"
+      path="/supplier/dashboard/:userid/addProducts"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Supplier/pages/supplierAddProducts').default);
@@ -116,7 +116,7 @@ export default (
       }}
     />
     <Route
-      path="/supplierDash/:userid/orders"
+      path="/supplier/dashboard/:userid/orders"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Supplier/pages/supplierOrders').default);
@@ -124,7 +124,7 @@ export default (
       }}
     />
     <Route
-      path="/supplierDash/:userid/earnings"
+      path="/supplier/dashboard/:userid/earnings"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Supplier/pages/supplierEarnings').default);
@@ -143,7 +143,7 @@ export default (
       }}
     />
     <Route
-      path="/restDash/:userid"
+      path="/restaurant/dashboard/:userid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Restaurant/pages/restaurantDashboard').default);
@@ -151,7 +151,7 @@ export default (
       }}
     />
     <Route
-      path="/restDash/:userid/shop"
+      path="/restaurant/dashboard/:userid/shop"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Restaurant/pages/restaurantShop').default);
@@ -159,7 +159,7 @@ export default (
       }}
     />
     <Route
-      path="/restDash/:userid/orders"
+      path="/restaurant/dashboard/:userid/orders"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Restaurant/pages/restaurantOrders').default);
@@ -167,7 +167,7 @@ export default (
       }}
     />
     <Route
-      path="/restDash/:userid/suppliers"
+      path="/restaurant/dashboard/:userid/suppliers"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Restaurant/pages/restaurantSuppliers').default);

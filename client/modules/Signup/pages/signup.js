@@ -55,7 +55,6 @@ class Signup extends React.Component {
         if (isValid) {
             this.setState({
                 errors: {},
-                userType: typeOfUser
             });
 
             this.props.signupRequest(data)
@@ -72,14 +71,13 @@ class Signup extends React.Component {
                 		role
                 	}
                 	this.props.authorizeUser(activeUser, token);
-                	browserHistory.push('/restDash/restId');	
+                	browserHistory.push('/'+activeUser.role+'/dashboard/' +activeUser.id);	
                 })
                 .catch((err) => this.setState({ errors: err.response.data }));
         }
     }
     render() {
         const { errors } = this.state;
-        	console.log(this.props);
         return (
             <div>
        <div className={styles.topCover}>
