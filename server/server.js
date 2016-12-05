@@ -41,6 +41,8 @@ import serverConfig from './config';
 
 import signup from './routes/signup.routes';
 import login from './routes/login.routes';
+// import update from './routes/update.routes.js';
+// import logout from './routes/logout.routes.js';
 
 
 // Set native promises as mongoose promise
@@ -65,6 +67,8 @@ app.use(Express.static(path.resolve(__dirname, '../static')));
 app.use('/api', posts);
 app.use('/api/signup', signup);
 app.use ('/api/login', login);
+// app.use ('/api/update', update);
+// app.use ('/api/logout', logout);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

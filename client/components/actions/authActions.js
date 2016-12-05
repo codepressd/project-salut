@@ -12,7 +12,7 @@ export const authorizeUser = (user, token) => ({
 
 export const authorizeUserError = (error) => ({
 
-	type: AUTHORIZE_USER,
+	type: AUTHORIZE_USER_ERROR,
 	error
 });
 

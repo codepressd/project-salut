@@ -55,15 +55,8 @@ UserSchema.pre('save', function(next) {
 // };
 
 UserSchema.methods.validPassword = function(passwordAttempt) {
-    console.log('thispassword',this.password);
-    bcrypt.compare(passwordAttempt, this.password, function(err, res) {
-
-        if (err) {
-            throw err 
-        }
-        return res;
-
-    });
+    
+    return bcrypt.compareSync(passwordAttempt, this.password);
 }
 
 

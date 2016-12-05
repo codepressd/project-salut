@@ -5,9 +5,9 @@ import App from './modules/App/App';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
-  require.ensure = function requireModule(deps, callback) {
-    callback(require);
-  };
+    require.ensure = function requireModule(deps, callback) {
+        callback(require);
+    };
 }
 
 /* Workaround for async react routes to work with react-hot-reloader till
@@ -15,33 +15,34 @@ if (typeof require.ensure !== 'function') {
   https://github.com/gaearon/react-hot-loader/issues/288 is fixed.
  */
 if (process.env.NODE_ENV !== 'production') {
-  // Require async routes only in development for react-hot-reloader to work.
-  require('./modules/Home/pages/home');
-   require('./modules/About/pages/about');
-   require('./modules/FAQ/pages/faq');
-   require('./modules/Signup/pages/signup');
-   require('./modules/Login/pages/login');
-   require('./modules/Restaurant/pages/restaurantSignup');
-   require('./modules/Supplier/pages/supplierSignup');
-   //Back End Routes
-   //Restaurant Routes
-   require('./modules/Restaurant/pages/restaurantDashboard');
-   require('./modules/Restaurant/pages/restaurantShop');
-   require('./modules/Restaurant/pages/restaurantOrders');
-   require('./modules/Restaurant/pages/restaurantSuppliers');
-   //Supplier Routes
-   require('./modules/Supplier/pages/SupplierDashboard');
-   require('./modules/Supplier/pages/supplierProducts');
-   require('./modules/Supplier/pages/supplierAddProducts');
-   require('./modules/Supplier/pages/supplierOrders');
-   require('./modules/Supplier/pages/supplierEarnings');
-   require('./modules/Post/pages/PostDetailPage/PostDetailPage');
+    // Require async routes only in development for react-hot-reloader to work.
+    require('./modules/Home/pages/home');
+    require('./modules/About/pages/about');
+    require('./modules/FAQ/pages/faq');
+    require('./modules/Signup/pages/signup');
+    require('./modules/Login/pages/login');
+    require('./modules/Restaurant/pages/restaurantSignup');
+    require('./modules/Supplier/pages/supplierSignup');
+    require('./modules/Profile/pages/profilePage');
+    //Back End Routes
+    //Restaurant Routes
+    require('./modules/Restaurant/pages/restaurantDashboard');
+    require('./modules/Restaurant/pages/restaurantShop');
+    require('./modules/Restaurant/pages/restaurantOrders');
+    require('./modules/Restaurant/pages/restaurantSuppliers');
+    //Supplier Routes
+    require('./modules/Supplier/pages/SupplierDashboard');
+    require('./modules/Supplier/pages/supplierProducts');
+    require('./modules/Supplier/pages/supplierAddProducts');
+    require('./modules/Supplier/pages/supplierOrders');
+    require('./modules/Supplier/pages/supplierEarnings');
+    require('./modules/Post/pages/PostDetailPage/PostDetailPage');
 }
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
-  <Route path="/" component={App}>
+    <Route path="/" component={App}>
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
@@ -174,6 +175,16 @@ export default (
         });
       }}
     />
+  {/*proflie page*/}
+    <Route
+      path="/:userRole/dashboard/:userid/profile"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Profile/pages/profilePage').default);
+        });
+      }}
+    />
+
     <Route
       path="/posts/:slug-:cuid"
       getComponent={(nextState, cb) => {

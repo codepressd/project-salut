@@ -1,28 +1,45 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 
 import { Menu } from 'semantic-ui-react';
+
 
 // Import Style
 import styles from './Header.css';
 
-export function Header(props, context) {
- 
-  return (
-    <div className={styles.header}>
-        <Menu className={styles.navColor} pointing secondary>
-        <span className={styles.myBrand}>Salut.io</span>
-          <Menu.Item name='home' active={context.router.isActive('/', true)} onClick={()=> browserHistory.push('/')} />
-          <Menu.Item name='About' active={context.router.isActive('/about', true)} onClick={()=> browserHistory.push('/about')} />
-          <Menu.Item name='FAQ'  active={context.router.isActive('/faq', true)} onClick={()=> browserHistory.push('/faq')} />
-          <Menu.Menu position='right'>
-            <Menu.Item name='Signup'  active={context.router.isActive('/signup', true)} onClick={()=> browserHistory.push('/signup')} />
-            <Menu.Item name='Login'  active={context.router.isActive('/login', true)} onClick={()=> browserHistory.push('/login')} />
-          </Menu.Menu>
-        </Menu>
-    </div>
-  );
+//Import Headers
+
+import BackEndHeader from './BackendHeader';
+import FrontEndHeader from'./FrontEndHeader';
+
+const mapStateToProps = function(state){
+  return{
+    activeUser: state.ActiveUser
+  }
+}
+let ActiveHeader = null;
+
+class Header extends React.Component{
+  constructor(props){
+    super(props);
+
+  }
+  componentWillMount(){
+    
+    if(this.props.activeUser.user !== null){
+
+     ActiveHeader  = FrontEndHeader;
+
+    }
+    ActiveHeader = BackEndHeader;
+
+  }
+  render(){
+    return(
+      <ActiveHeader />
+      )
+  }
 }
 
 Header.contextTypes = {
@@ -35,4 +52,4 @@ Header.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default Header;
+export default connect(mapStateToProps)(Header);

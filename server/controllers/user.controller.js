@@ -17,131 +17,144 @@ function setUserInfo(request) {
         email: request.email,
         companyName: request.profile.companyName,
         role: request.role,
-        }
-    };
-
-    //login route
-
-  exports.login = function(req, res, next) {
- 	let email = req.body.email;
- 	let pass = req.body.password;
-        //let userInfo = setUserInfo(req.user);
-        
-        User.findOne({ email: email }, function(err, user) {
-            if (err) {
-                return next(err); }
-
-            // If user is not found return error
-            if (!user) {
-                return res.status(422).send({ error: 'That Email is not in our system' });
-            }
-            if(user.validPassword(pass)){
-            	return res.status(423).send({error: 'That is not a Valid Password'});
-            }
-            console.log('It passed');
-        });
-        // res.status(200).json({
-        //     token: 'JWT ' + generateToken(userInfo),
-        //     user: userInfo
-        // });
     }
+};
 
-    //register route
-    exports.register = function(req, res, next) {
-    
-        // Check for registration errors
-        const email = req.body.email;
-        const password = req.body.password;
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const companyName = req.body.companyName;
-        const address = req.body.address;
-        const city = req.body.city;
-        const state = req.body.state;
-        const region = req.body.region;
-        const businessType = req.body.businessType;
-        const role = req.body.role;
-        
 
-        // Return error if no email provided
-        if (!email) {
-            return res.status(422).send({ error: 'You must enter an email address.' });
+//login route
+
+exports.login = function(req, res, next) {
+    let email = req.body.email;
+    let pass = req.body.password;
+    //let userInfo = setUserInfo(req.user);
+
+    User.findOne({ email: email }, function(err, user) {
+        if (err) {
+            return next(err);
         }
 
-        // Return error if full name not provided
-        if (!firstName || !lastName) {
-            return res.status(422).send({ error: 'You must enter your full name.' });
+        // If user is not found return error
+        if (!user) {
+            return res.status(422).send({ error: 'That Email is not in our system' });
         }
 
-        // Return error if no password provided
-        if (!password) {
-            return res.status(422).send({ error: 'You must enter a password.' });
+        const validPass = user.validPassword(pass);
+
+        if (!validPass) {
+            return res.status(422).send({ error: 'That Password Doesn\'t Match' })
+
         }
+        if (validPass) {
+            let userInfo = setUserInfo(user);
 
-        User.findOne({ email: email }, function(err, existingUser) {
-            if (err) {
-                return next(err); }
-
-            // If user is not unique, return error
-            if (existingUser) {
-                return res.status(422).send({ error: 'That email address is already in use.' });
-            }
-
-            // If email is unique and password was provided, create account
-            let user = new User({
-                email: email,
-                password: password,
-                profile: { 
-                	firstName: firstName, 
-                	lastName: lastName, 
-                	companyName: companyName,
-                	address: address, 
-                	city: city,
-        		state: state,
-        		region: region,
-		businessType: businessType
-	},
-	role: role
+            res.status(201).json({
+                token: 'JWT ' + generateToken(userInfo),
+                user: userInfo
             });
 
-            user.save(function(err, user) {
-                if (err) {
-                    return next(err); }
+        }
 
-                // Subscribe member to Mailchimp list
-                // mailchimp.subscribeToNewsletter(user.email);
+    });
+}
 
-                // Respond with JWT if user was created
+//register route
+exports.register = function(req, res, next) {
 
-                let userInfo = setUserInfo(user);
+    // Check for registration errors
+    const email = req.body.email;
+    const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const companyName = req.body.companyName;
+    const address = req.body.address;
+    const city = req.body.city;
+    const state = req.body.state;
+    const region = req.body.region;
+    const businessType = req.body.businessType;
+    const role = req.body.role;
 
-                res.status(201).json({
-                    token: 'JWT ' + generateToken(userInfo),
-                    user: userInfo
-                });
+
+    // Return error if no email provided
+    if (!email) {
+        return res.status(422).send({ error: 'You must enter an email address.' });
+    }
+
+    // Return error if full name not provided
+    if (!firstName || !lastName) {
+        return res.status(422).send({ error: 'You must enter your full name.' });
+    }
+
+    // Return error if no password provided
+    if (!password) {
+        return res.status(422).send({ error: 'You must enter a password.' });
+    }
+
+    User.findOne({ email: email }, function(err, existingUser) {
+        if (err) {
+            return next(err);
+        }
+
+        // If user is not unique, return error
+        if (existingUser) {
+            return res.status(422).send({ error: 'That email address is already in use.' });
+        }
+
+        // If email is unique and password was provided, create account
+        let user = new User({
+            email: email,
+            password: password,
+            profile: {
+                firstName: firstName,
+                lastName: lastName,
+                companyName: companyName,
+                address: address,
+                city: city,
+                state: state,
+                region: region,
+                businessType: businessType
+            },
+            role: role
+        });
+
+        user.save(function(err, user) {
+            if (err) {
+                return next(err);
+            }
+
+            // Subscribe member to Mailchimp list
+            // mailchimp.subscribeToNewsletter(user.email);
+
+            // Respond with JWT if user was created
+
+            let userInfo = setUserInfo(user);
+
+            res.status(201).json({
+                token: 'JWT ' + generateToken(userInfo),
+                user: userInfo
             });
         });
-    }
+    });
+}
 
 //Role Authorization
 
-exports.roleAuthorization = function(role) {  
-  return function(req, res, next) {
-    const user = req.user;
+exports.roleAuthorization = function(role) {
+    return function(req, res, next) {
+        const user = req.user;
 
-    User.findById(user._id, function(err, foundUser) {
-      if (err) {
-        res.status(422).json({ error: 'No user was found.' });
-        return next(err);
-      }
+        User.findById(user._id, function(err, foundUser) {
+            if (err) {
+                res.status(422).json({ error: 'No user was found.' });
+                return next(err);
+            }
 
-      // If user is found, check role.
-      if (foundUser.role == role) {
-        return next();
-      }
+            // If user is found, check role.
+            if (foundUser.role == role) {
+                return next();
+            }
 
-      res.status(401).json({ error: 'You are not authorized to view this content.' });
-      return next('Unauthorized');
-    })
-  }
+            res.status(401).json({ error: 'You are not authorized to view this content.' });
+            return next('Unauthorized');
+        })
+    }
 }

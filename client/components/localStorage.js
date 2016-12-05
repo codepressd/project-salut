@@ -1,7 +1,6 @@
 export const loadUserState = () => {
 	try{
 		const userState = localStorage.getItem('user');
-		console.log('userstate', userState);
 		if(userState === null){
 			return undefined;
 		}
