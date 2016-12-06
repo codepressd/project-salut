@@ -25,19 +25,16 @@ class Header extends React.Component{
     super(props);
 
   }
-  componentWillMount(){
-    
-    if(this.props.activeUser.user !== null){
 
-     ActiveHeader  = FrontEndHeader;
-
-    }
-    ActiveHeader = BackEndHeader;
-
-  }
   render(){
+    // console.log(this.props.activeUser);
+    // let ActiveHeader = FrontEndHeader;
+    // if (this.props.activeUser.user !== null){
+    //   ActiveHeader = BackEndHeader;
+    // }
+    const Header = ({activeUser: {user}}) => user ? <FrontEndHeader /> : <BackEndHeader />;
     return(
-      <ActiveHeader />
+      <Header  />
       )
   }
 }

@@ -23,7 +23,7 @@ class Login extends React.Component {
     handleSubmit(e, data) {
         e.preventDefault();
         const { errors, typeOfUser, isValid } = validateInput(data);
-
+        console.log(data);
         if (!isValid) {
             this.setState({ errors });
         }

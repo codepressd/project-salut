@@ -2,6 +2,7 @@ export const AUTHORIZE_USER = 'AUTHORIZE_USER';
 export const AUTHORIZE_ERROR = 'AUTHORIZE_ERROR';
 export const AUTHORIZE_USER_UPDATE = 'AUTHORIZE_USER_UPDATE';
 export const USER_LOGOUT = 'USER_LOGOUT';
+import {browserHistory} from 'react-router';
 
 export const authorizeUser = (user, token) => ({
 
@@ -22,9 +23,12 @@ export const authorizeUserUpdate = (user) => ({
 	user
 });
 
-export const logoutUser = () => ({
+export const logoutUser = () => {
 
-	type: USER_LOGOUT,
+	return dispatch => {
+    	browserHistory.push('/');
+    		return dispatch({ type: USER_LOGOUT });
+  } 
 	
-});
+};
 
