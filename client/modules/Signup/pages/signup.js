@@ -91,8 +91,8 @@ class Signup extends React.Component {
        <Form onSubmit={this.handleSubmit}>
 
        <Form.Group  widths='equal' >
-          <Form.Input label='Username' className={classnames({'error': errors.username})} name='username' placeholder={errors.username && errors.username || 'Pick a Username'} required />
-          <Form.Input label='Email' className={classnames({'error': errors.email})} name='email' placeholder={errors.email && errors.email ||'Email'} required />
+          <Form.Input label={errors.username && errors.username || 'Username'} className={classnames({'error': errors.username})} name='username' placeholder={errors.username && errors.username || 'Pick a Username'} required />
+          <Form.Input label={errors.email && errors.email ||'Email'} className={classnames({'error': errors.email})} name='email' placeholder={errors.email && errors.email ||'Email'} required />
         </Form.Group>
 
          <Form.Input label='Password' className={classnames({'error': errors.password})} type='password' name='password' placeholder={errors.password && errors.password ||'Password'} required />

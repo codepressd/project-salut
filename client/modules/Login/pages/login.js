@@ -23,7 +23,7 @@ class Login extends React.Component {
     handleSubmit(e, data) {
         e.preventDefault();
         const { errors, typeOfUser, isValid } = validateInput(data);
-        console.log(data);
+      
         if (!isValid) {
             this.setState({ errors });
         }
@@ -69,8 +69,8 @@ class Login extends React.Component {
 		
 			    <Form onSubmit={this.handleSubmit}>
 				<Form.Group  widths='equal' >
-				          <Form.Input label='Email' className={classnames({'error': errors.email})} name='email' placeholder={errors.email && errors.email || 'Email'} required />
-				          <Form.Input label='Password' type='password' className={classnames({'error': errors.password})} name='password' placeholder={errors.password && errors.password ||'Password'} required />
+				          <Form.Input label={errors.email && errors.email || 'Email'} className={classnames({'error': errors.email})} name='email' placeholder={errors.email && errors.email || 'Email'} required />
+				          <Form.Input label={errors.password && errors.password ||'Password'} type='password' className={classnames({'error': errors.password})} name='password' placeholder={errors.password && errors.password ||'Password'} required />
 			        	</Form.Group>
 			    <Button type='submit'>Submit</Button>
 			  </Form>

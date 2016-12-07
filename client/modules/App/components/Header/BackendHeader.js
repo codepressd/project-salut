@@ -28,7 +28,7 @@ handleClick(){
           <Menu.Item name='FAQ'  active={this.props.location.pathname === '/faq'} onClick={()=> browserHistory.push('/faq')} />
           <Menu.Menu position='right'>
           {/* <Menu.Item name='Profile'  active={context.router.isActive('/'+props.activeUser.user.role+'/dashboard/'+props.activeUser.user.id+'/profile', true)} onClick={()=> browserHistory.push('/'+props.activeUser.user.role+'/dashboard/'+props.activeUser.user.id+'/profile')} />*/}
-            <Menu.Item name='Logout'  onClick={this.handleClick} />
+            <Menu.Item name='Logout'  onClick={()=> browserHistory.push('/logout')} />
           </Menu.Menu>
         </Menu>
     </div>

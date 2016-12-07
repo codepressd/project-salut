@@ -7,6 +7,7 @@
 	clear: both;
 	content: ' ';
 	display: block;
+	padding-bottom: 70px;
 }
 .navWrap{
 	width: 20%;

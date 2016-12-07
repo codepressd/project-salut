@@ -21,6 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('./modules/FAQ/pages/faq');
     require('./modules/Signup/pages/signup');
     require('./modules/Login/pages/login');
+    require('./modules/Login/pages/logout');
     require('./modules/Restaurant/pages/restaurantSignup');
     require('./modules/Supplier/pages/supplierSignup');
     require('./modules/Profile/pages/profilePage');
@@ -78,6 +79,14 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Login/pages/login').default);
+        });
+      }}
+    />
+    <Route
+      path="/logout"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Login/pages/logout').default);
         });
       }}
     />

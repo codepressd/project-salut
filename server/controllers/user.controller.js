@@ -35,13 +35,13 @@ exports.login = function(req, res, next) {
 
         // If user is not found return error
         if (!user) {
-            return res.status(422).send({ error: 'That Email is not in our system' });
+            return res.status(422).send({ email: 'Can\'t find that email' });
         }
 
         const validPass = user.validPassword(pass);
 
         if (!validPass) {
-            return res.status(422).send({ error: 'That Password Doesn\'t Match' })
+            return res.status(422).send({ password: 'Incorrect Password' })
 
         }
         if (validPass) {
@@ -76,7 +76,7 @@ exports.register = function(req, res, next) {
 
     // Return error if no email provided
     if (!email) {
-        return res.status(422).send({ error: 'You must enter an email address.' });
+        return res.status(422).send({ email: 'You must enter an email address.' });
     }
 
     // Return error if full name not provided
@@ -86,7 +86,7 @@ exports.register = function(req, res, next) {
 
     // Return error if no password provided
     if (!password) {
-        return res.status(422).send({ error: 'You must enter a password.' });
+        return res.status(422).send({ password: 'You must enter a password.' });
     }
 
     User.findOne({ email: email }, function(err, existingUser) {
@@ -96,7 +96,7 @@ exports.register = function(req, res, next) {
 
         // If user is not unique, return error
         if (existingUser) {
-            return res.status(422).send({ error: 'That email address is already in use.' });
+            return res.status(422).send({ email: 'That email address is already in use.' });
         }
 
         // If email is unique and password was provided, create account
