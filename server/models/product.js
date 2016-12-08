@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt-nodejs';
 
 const ProductSchema = mongoose.Schema({
     title: {
@@ -15,14 +14,8 @@ const ProductSchema = mongoose.Schema({
         case: { type: String }
     },
     category: { type: String },
-    image: {
-        type: String,
-        enum: ['restaurant', 'supplier'],
-        default: 'restaurant'
-    },
-    supplier: { type: String },
-     {
-    timestamps: true
+    image: {type: String },
+    supplier: { type: String }
 });
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('Product', ProductSchema)

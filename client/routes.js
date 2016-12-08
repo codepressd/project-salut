@@ -23,7 +23,6 @@ if (process.env.NODE_ENV !== 'production') {
     require('./modules/Login/pages/login');
     require('./modules/Login/pages/logout');
     require('./modules/Restaurant/pages/restaurantSignup');
-    require('./modules/Supplier/pages/supplierSignup');
     require('./modules/Profile/pages/profilePage');
     //Back End Routes
     //Restaurant Routes
@@ -93,14 +92,6 @@ export default (
 
    {/* Suplier Routes*/}
 
-    <Route
-      path="/supplier"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Supplier/pages/supplierSignup').default);
-        });
-      }}
-    />
     <Route
       path="/supplier/dashboard/:userid"
       getComponent={(nextState, cb) => {

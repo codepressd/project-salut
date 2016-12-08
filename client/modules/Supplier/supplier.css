@@ -9,6 +9,15 @@
 	display: block;
 	padding-bottom: 70px;
 }
+.imageSize{
+	display: block;
+	max-width: 200px;
+	width: auto;
+	height: auto;
+}
+.dropZone{
+	width: 100%;
+}
 .navWrap{
 	width: 20%;
 	float: left;
