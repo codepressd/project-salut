@@ -77,7 +77,7 @@ class SupplierAddProducts extends React.Component {
          this.setState({
              errors: {},
          });
-         data.supplierId = this.props.activeUser.user.id;
+         data.supplierId = this.props.user.id;
          if (uploadedFile) {
              data.image = uploadedFileCloudinaryUrl;
          }else{
@@ -89,68 +89,71 @@ class SupplierAddProducts extends React.Component {
 
     }
     render() {
-        const userInfo = this.props.activeUser.user;
-        const {errors} = this.state;
-        return (
-            <div className={styles.pageWrap}>
-		<div className={styles.navWrap}>
-			<SideMenu {...this.props} />
-		</div>
-		<div className={styles.contentWrap}>
-			 <Container className={styles.formDash}>
-			 <h2>{userInfo.companyName} : Add Product</h2>
-			 	 <Grid columns={2} divided>
-			 	 <h4>Upload an Image - 200px by 200px works best!</h4>
-			 	 	<Grid.Row>
-			 	 		<Grid.Column>
-			 	 		<Dropzone
-					           	 onDrop={this.onImageDrop.bind(this)}
-					           	 multiple={false}
-					           	 accept="image/*">
-					            <div>Drop an image or click to select a file to upload.</div>
-					          </Dropzone>
-			 	 		</Grid.Column>
-			 	 		<Grid.Column>
-			 	 		 {this.state.uploadedFileCloudinaryUrl === '' ? null :
-				          		<div>
-				            		<p>{this.state.uploadedFile.name}</p>
-				           		 <img className={styles.imageSize} src={this.state.uploadedFileCloudinaryUrl} />
-				          		</div>}
-			 	 		</Grid.Column>
-			 	 	</Grid.Row>
-				  </Grid>
-				  <Divider hidden />
-			       <Form onSubmit={this.handleSubmit}>
-			      	
-			          <Form.Input label='Name Of Product' className={classnames({'error': errors.productName})} name='productName' placeholder={errors.productName && errors.productName ||'Product Name'}required/>
-			          <h4>Individual Price</h4>
-			          <Form.Group>
-			           <Input label='$' type='number' className={classnames({'error': errors.unitPrice})} name='unitPrice' placeholder={errors.unitPrice && errors.unitPrice ||'Amount'} required/>
-			            </Form.Group>
-			            <h4>Case Price</h4>
-			            <Form.Group>
-			           <Input label='$' type='number' className={classnames({'error': errors.casePrice})} name='casePrice' placeholder={errors.casePrice && errors.casePrice ||'Amount'} required/>
-			            </Form.Group> 
-			          <Form.TextArea name='productDescription' className={classnames({'error': errors.productDescription})} label='Product Description' placeholder={errors.productDescription && errors.productDescription ||'Describe what you are selling...'} rows='3' required/>
-			  
-			        <Divider section />
-			       
-			        <Form.Group widths='2'>
-			          <Form.Field>
-			            <h2>Pick One  General Category</h2>
-			            <Form.Select label='Product Type' className={classnames({'error': errors.productType})} name='productType' options={categoryType} placeholder={errors.productType && errors.productType ||'Product Type'} required/>
-			          </Form.Field>
-			        </Form.Group>
-			        <Button primary type='submit'>Add Product</Button>
-			      </Form>
-			</Container>
-		</div>
-	</div>
+      const {user} = this.props
+      const {errors} = this.state;
+      return (
+        <div className={styles.pageWrap}>
+          <div className={styles.navWrap}>
+            <SideMenu {...this.props} />
+          </div>
+          <div className={styles.contentWrap}>
+            <Container className={styles.formDash}>
+              <h2>{user.companyName} : Add Product</h2>
+              <Grid columns={2} divided>
+                <h4>Upload an Image - 200px by 200px works best!</h4>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Dropzone
+                      onDrop={this.onImageDrop.bind(this)}
+                      multiple={false}
+                      accept="image/*">
+                      <div>Drop an image or click to select a file to upload.</div>
+                    </Dropzone>
+                  </Grid.Column>
+                  <Grid.Column>
+                    {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                      <div>
+                        <p>{this.state.uploadedFile.name}</p>
+                        <img className={styles.imageSize} src={this.state.uploadedFileCloudinaryUrl} />
+                      </div>}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <Divider hidden />
+              <Form onSubmit={this.handleSubmit}>
 
-        )
+                <Form.Input label='Name Of Product' className={classnames({'error': errors.productName})} name='productName' placeholder={errors.productName && errors.productName ||'Product Name'}required/>
+                <h4>Individual Price</h4>
+                <Form.Group>
+                  <Input label='$' type='number' className={classnames({'error': errors.unitPrice})} name='unitPrice' placeholder={errors.unitPrice && errors.unitPrice ||'Amount'} required/>
+                </Form.Group>
+                <h4>Case Price</h4>
+                <Form.Group>
+                  <Input label='$' type='number' className={classnames({'error': errors.casePrice})} name='casePrice' placeholder={errors.casePrice && errors.casePrice ||'Amount'} required/>
+                </Form.Group>
+                <Form.TextArea name='productDescription' className={classnames({'error': errors.productDescription})} label='Product Description' placeholder={errors.productDescription && errors.productDescription ||'Describe what you are selling...'} rows='3' required/>
+
+                <Divider section />
+
+                <Form.Group widths='2'>
+                  <Form.Field>
+                    <h2>Pick One  General Category</h2>
+                    <Form.Select label='Product Type' className={classnames({'error': errors.productType})} name='productType' options={categoryType} placeholder={errors.productType && errors.productType ||'Product Type'} required/>
+                  </Form.Field>
+                </Form.Group>
+                <Button primary type='submit'>Add Product</Button>
+              </Form>
+            </Container>
+          </div>
+        </div>
+      );
     }
-
 }
 
 
-export default connect(null, {postProduct})(SupplierAddProducts);
+export default connect(
+  state => ({
+    user: state.ActiveUser.user
+  }),
+  {postProduct}
+)(SupplierAddProducts);
